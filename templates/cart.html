@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block 'main' %}
+<!-- Main starts -->
+<div class="row mt-3 p-2 bg-light">
+
+    <!-- Product and customer details start -->
+    <div class="col-md-9">
+        {% for i in data %}
+        {% if forloop.counter == 1 %}
+        <!-- Customer details starts -->
+        <div class="row shadow p-3">
+            <h4>Customer Details</h4><hr>
+            <p><strong>Customer Name : </strong> {{i.uid.username}}</p>
+            <p><strong>Customer Email : </strong> {{i.uid.email}}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <!-- Customer details ends -->
+        {% for i in data %}
+        <!-- Product details starts -->
+        <div class="row shadow p-3">
+            <div class="col-md-5">
+                <img src="{{i.pid.pimage.url}}" class="card-img-top" alt="Mobile">
+            </div>
+            <!-- Image section -->
+            <div class="col-md-7">
+                <p><Strong>Product : </Strong>{{i.pid.name}}</p>
+                <p><Strong>Category : </Strong>{{i.pid.cat}}</p>
+
+                {% if i.pid.cat == 1 %}
+                    <p><Strong>Category : </Strong>Mobile</p>
+                {% elif i.pid.cat == 2 %}
+                    <p><Strong>Category : </Strong>Shoes</p>
+                {% elif i.pid.cat == 3 %}
+                    <p><Strong>Category : </Strong>Cloth</p>
+                {% else %}
+                    <p><Strong>Category : </Strong>Laptop</p>                    
+                {% endif %} 
+
+                <p><Strong>Product Details : </Strong>{{i.pid.pdetail}}</p>
+                <p><Strong>Price : </Strong>Rs. {{i.pid.price}}</p>
+                <p>
+                    <a href="//updateqty/0/{{i.id}}"><button class="btn btn-danger"><b>-</b></button></a>
+                    <input type="text" value="{{i.qty}}">
+                    <a href="/updateqty/1/{{i.id}}"><button class="btn btn-danger"><b>+</b></button></a>
+                </p>
+                <p><a href="/remove/{{i.id}}"><button class="btn btn-danger">Remove</button></a></p>
+            </div>
+        </div>
+        {% endfor %}
+        <!-- Product details ends -->
+
+    </div>
+    <!-- product and customer details ends -->
+
+    <!-- price details starts -->
+    <div class="col-md-3 shadow p-2">
+        <h4>Price Details</h4><hr>
+        <p><strong>Price ({{n}} item) : </strong>Rs. {{total}}</p>
+        <p><strong>Total Amount : </strong>Rs. {{total}}</p>
+        <p><a href="/place_order"><button class="btn btn-danger">Place Order</button></a></p>
+    </div>
+    <!-- Price details ends -->
+    
+</div>
+<!-- 2nd row end or main end  -->
+ 
+{% endblock 'main' %}
